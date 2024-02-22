@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #E3F2FD; /* Light blue background */
+}
+
+#formContainer {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 500px; /* Adjust width as needed */
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+    color: #333; /* Darker text for better readability */
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="date"], button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #BDBDBD; /* Light grey border */
+    background-color: #FFFFFF; /* White background */
+}
+
+input[type="text"]:hover, input[type="password"]:hover, input[type="email"]:hover, input[type="date"]:hover {
+    background-color: #FFCDD2; /* Light pink background on hover */
+    border-color: #F48FB1; /* Deeper pink border on hover */
+}
+
+button {
+    background-color: #2196F3; /* Light blue background */
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: #1976D2; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+}
+
+button:disabled {
+    background-color: #BDBDBD; /* Grey out when disabled */
+    cursor: not-allowed;
+}
+
+/* Additional styles for validation messages */
+.validation-message {
+    color: #D32F2F; /* Red text for errors */
+    margin-top: 5px;
+}

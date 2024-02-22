@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extended Form with Validation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="formContainer">
+        <form id="registrationForm">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" placeholder="Enter your full name" title="Enter your full name" disabled required>
+
+            <label for="mobileNumber">Mobile Number:</label>
+            <input type="text" id="mobileNumber" placeholder="Enter your mobile number" title="Enter a 10-digit mobile number without any spaces or symbols" disabled required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" title="Enter a valid email address, e.g., user@example.com" disabled required>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" title="Enter your date of birth" disabled required>
+
+            <label for="passwordField">Password:</label>
+            <input type="password" id="passwordField" placeholder="Create a password" title="Create a password (min 8 characters)" disabled required>
+
+            <button type="button" id="activateBtn">Activate Textboxes</button>
+            <button type="submit" id="submitBtn" disabled>Submit</button>
+        </form>
+    </div>
+
+    <script>
+       document.addEventListener('DOMContentLoaded', function() {
+        const activateBtn = document.getElementById('activateBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const form = document.getElementById('registrationForm');
+        const inputs = form.querySelectorAll('input');
+
+        // Additional functionality to prevent digits in the full name and non-digits in the mobile number
+        const fullNameInput = document.getElementById('fullName');
+        const mobileNumberInput = document.getElementById('mobileNumber');
+
+        fullNameInput.addEventListener('input', function() {
+            this.value = this.value.replace(/\d/g, ''); // Removes digits from full name
+        });
+
+        mobileNumberInput.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, ''); // Removes non-digit characters from mobile number
+        });
+
+        activateBtn.addEventListener('click', function() {
+            const password = prompt("Please enter the password to activate the textboxes:");
+            if (password === "correctPassword") { // Replace with actual password check
+                inputs.forEach(input => input.disabled = false);
+                submitBtn.disabled = false;
+                alert("Textboxes activated successfully.");
+            } else {
+                let tryAgain = confirm("Password is incorrect. Would you like to try again?");
+                if (tryAgain) {
+                    activateBtn.click(); // Simulate another click to prompt again.
+                }
+            }
+        });
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            if(validateFields()) {
+                alert("Form submitted successfully!");
+                // Further processing can be added here, e.g., sending data to a server
+            }
+        });
+
+        function validateFields() {
+            const fullName = fullNameInput.value;
+            const mobileRegex = /^\d{10}$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const passwordField = document.getElementById('passwordField').value;
+            let errors = "";
+
+            if (fullName.length === 0) {
+                errors += "Full name is required.\n";
+            }
+            if (!mobileRegex.test(mobileNumberInput.value)) {
+                errors += "Mobile number is not correct. It must be 10 digits.\n";
+            }
+            if (!emailRegex.test(document.getElementById('email').value)) {
+                errors += "Email is not correct. Email must be in the format: user@example.com\n";
+            }
+            if (passwordField.length < 8) {
+                errors += "Password is too short. It must be at least 8 characters.\n";
+            }
+
+            if (errors) {
+                alert(errors);
+                return false;
+            }
+            return true;
+        }
+    });
+    </script>
+</body>
+</html>
